@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<script>
+//----exe1------//
+var student = { 
+	name : "Shaheed", 
+	class : "graduate", 
+	rollno : 100 
+};
+console.log(student.name)
+console.log(student.class)
+console.log(student.rollno)
+
+
+//--------exe2----//
+
+console.log(student)
+delete student.rollno
+console.log(student)
+
+
+
+//------exe3-----//
+function objlen(stu) {
+	var count = 0;
+	var i;
+	for(i in stu){
+		if(stu.hasOwnProperty(i)){
+			count++;
+		}
+	}
+	return count
+}
+
+console.log(objlen(student))
+
+
+//--------exe4-----//
+var books = [
+{
+	title: 'The Design of EveryDay Things',
+	author: 'Don Norman',
+	alreadyRead: true
+},
+{   
+	title: 'The Most Human Human',
+	author: 'Brian Christian',
+	alreadyRead: false
+}];
+
+for (var i = 0; i < books.length; i++) {
+	var bookInfo = books[i].title + '" by ' + books[i].author;
+	if (books.alreadyRead) {
+		console.log('You already read "' + bookInfo);
+	} 
+	else {
+		console.log('You still need to read "' + bookInfo);
+	}
+}
+
+
+
+//------exe5--------//
+var cylinder = {
+	radius : 5,
+	height : 5
+}
+const PI = 3.14;
+console.log("volume of the cylinder is "+ (PI*Math.pow(cylinder.radius , 2)*cylinder.height).toFixed(4))  
+
+
+//---exe6-------//
+var arr = [4,5,8,3,6];
+var n = arr.length
+for (var i = 0; i < n-1; i++){
+	for (var j = 0; j < n-i-1; j++){
+		if (arr[j] > arr[j+1])
+		{
+			var temp = arr[j];
+			arr[j] = arr[j+1];
+			arr[j+1] = temp;
+		}
+	}
+}
+console.log(arr)
+
+
+//------exe7-----//
+var str = 'shaheed'
+var sub = []
+
+for(var i=0;i<str.length;i++){
+	for(var j=i+1;j<=str.length;j++){
+		sub.push(str.slice(i,j))
+	}
+}
+
+console.log(sub)
+
+
+
+//------exe8-----//
+function my_Clock() 
+{
+	this.cur_date = new Date();
+	this.hours = this.cur_date.getHours();
+	this.minutes = this.cur_date.getMinutes();
+	this.seconds = this.cur_date.getSeconds();
+}
+my_Clock.prototype.run = function ()
+{
+	setInterval(this.update.bind(this), 1000);
+};
+my_Clock.prototype.update = function () 
+{
+	this.updateTime(1);
+	console.log(this.hours + ":" + this.minutes + ":" + this.seconds);
+};
+my_Clock.prototype.updateTime = function (secs) 
+{
+	this.seconds+= secs;
+	if (this.seconds >= 60)
+	{
+		this.minutes++;
+		this.seconds= 0;
+	}
+	if (this.minutes >= 60)
+	{
+		this.hours++;
+		this.minutes=0;
+	}
+	if (this.hours >= 24)
+	{
+		this.hours = 0;
+	}
+};
+var clock = new my_Clock();
+clock.run();
+
+
+
+
+
+//------exe9-----//
+function area(radius){
+	return Math.PI*Math.pow(radius,2)
+}
+function perimeter(radius){
+	return 2*Math.PI*radius
+}
+
+var r = prompt('Enter the radius')
+console.log('area and perimeter of the circle is '+area(r) +'and '+perimeter(r));
+
+
+
+//---------exe10-----//
+var library = [ 
+{
+	title: 'Bill Gates',
+	author: 'The Road Ahead',
+	libraryID: 1254
+},
+{
+	title: 'Steve Jobs',
+	author: 'Walter Isaacson',
+	libraryID: 4264
+},
+{
+	title: 'Mockingjay: The Final Book of The Hunger Games',
+	author: 'Suzanne Collins',
+	libraryID: 3245
+}];
+
+var sort_by = function(field_name, reverse, initial){
+
+	var key = initial ?
+	function(x)
+	{
+		return initial(x[field_name]);
+	} :
+	function(x) 
+	{
+		return x[field_name];
+	};
+
+	reverse = !reverse ? 1 : -1;
+
+	return function (x, y) {
+		return x = key(x), y = key(y), reverse * ((x > y) - (y > x));
+	} ;
+};
+
+
+var newobj = library.sort(sort_by('libraryID', true, parseInt));
+
+console.log(newobj);
+
+
+
+
+//--------exe11--------//
+function all_prop(obj) 
+{
+	return Object.getOwnPropertyNames(obj);
+}
+
+console.log(all_prop(Array));
+console.log(all_prop(String));
+
+
+
+
+//----exe12-------//
+
+
+
+
+//------exe13------//
+function allKeys(obj) {
+	if (!isObject(obj)) return [];
+	var keys = [];
+	for (var key in obj) keys.push(key);
+		return keys;
+}
+function isObject(obj) 
+{
+	var type = typeof obj;
+	return type === 'function' || type === 'object' && !!obj;
+}
+function Student(name) {
+	this.name = name;
+}
+Student.prototype.rollno = true;
+console.log(allKeys(new Student("Shaheed")));
+
+
+
+
+//---------exe14-----//
+function all_values(obj) {
+	var keys = _keys(obj);
+	var length = keys.length;
+	var values = Array(length);
+	for (var i = 0; i < length; i++) {
+		values[i] = obj[keys[i]];
+	}
+	return values;
+}
+function _keys(obj) 
+{
+	if (!isObject(obj)) return [];
+	if (Object.keys) return Object.keys(obj);
+	var keys = [];
+	for (var key in obj) if (_.has(obj, key)) keys.push(key);
+		return keys;
+}
+function isObject(obj)   
+{  
+	var type = typeof obj;  
+	return type === 'function' || type === 'object' && !!obj;  
+} 
+console.log(all_values({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}));
+
+
+
+
+//------exe15----//
+function key_value_pairs(obj) 
+{
+	var keys = _keys(obj);
+	var length = keys.length;
+	var pairs = Array(length);
+	for (var i = 0; i < length; i++) 
+	{
+		pairs[i] = [keys[i], obj[keys[i]]];
+	}
+	return pairs;
+}
+
+function _keys(obj) 
+{
+	if (!isObject(obj)) return [];
+	if (Object.keys) return Object.keys(obj);
+	var keys = [];
+	for (var key in obj) if (_.has(obj, key)) keys.push(key);
+		return keys;
+}
+function isObject(obj) 
+{
+	var type = typeof obj;
+	return type === 'function' || type === 'object' && !!obj;
+}
+console.log(key_value_pairs({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}));
+
+
+
+
+
+//------exe16-----//
+function invert_key_value(obj) {
+	var result = {};
+	var keys = _keys(obj);
+	for (var i = 0, length = keys.length; i < length; i++) {
+		result[obj[keys[i]]] = keys[i];
+	}
+	return result;
+}
+function _keys(obj) 
+{
+	if (!isObject(obj)) return [];
+	if (Object.keys) return Object.keys(obj);
+	var keys = [];
+	for (var key in obj) if (_.has(obj, key)) keys.push(key);
+		return keys;
+}
+function isObject(obj) 
+{
+	var type = typeof obj;
+	return type === 'function' || type === 'object' && !!obj;
+}
+console.log(invert_key_value({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}));
+
+
+
+
+
+
+
+//------exe17-----//
+function hasKey(obj, key) {
+	return obj != null && hasOwnProperty.call(obj, key);
+}
+console.log(hasKey({boo: "bar", foo: "bar", hoo: "man"}, "hehe"));
+
+
+
+
+//-------exe18--------//
+function is_dom_element(obj) {
+	return !!(obj && obj.nodeType === 1);
+}
+console.log(is_dom_element('div'));
+
+
+</script>
+</body>
+</html>
